@@ -1,0 +1,46 @@
+﻿Lab 3 - Bonus
+
+In the first two labs quite a few ways of configuring JSON binding appeared.
+Sometimes, however, you need to go even further. This is possible by using
+adapters, or even specially crafted (de)serializers.
+
+# Adapters
+
+First we will look at an external library of code we cannot change (at least we'll assume it is).
+It has an UnmappablePerson that (although it can be mapped to JSON quite well) does not map to the serialized form we used for Person in Lab1.
+
+## Exercise
+
+Create a javax.json.bind.adapter.JsonbAdapter implementation that adapts UnmappablePerson to Person for serialization, register the adapter with Jsonb using JsonbConfig::withAdapters and check things work by executing code like:
+
+	JsonbConfig config = new JsonbConfig();
+	config.withAdapters(new UnmappablePersonAdapter());
+	Jsonb jsonb = JsonbBuilder.create(config);
+	
+	UnmappablePerson unmappablePerson = new UnmappablePerson(new Name("New", "Person"), LocalDate.now());
+	System.out.println(jsonb.toJson(unmappablePerson));
+
+Look at the JSON output of serializing the UnmappablePerson.
+Can it be deserialized to a Person? And to an UnmappablePerson?
+
+
+# Serializers/Deserializers
+
+Sometimes default mapping, annotations or adapters can't help with JSON-Object mapping needs.
+Let's look at an example with different kinds of shapes.
+
+## Exercise
+
+Create serializers for the different shape types (e.g. CircleSerializer implements JsonbSerializer<Circle>).
+Have the shapes serialized like:
+{"square":{"side":2.0}}
+{"rectangle":{"height":3.0,"width":2.0}}
+{"circle":{"radius":1.0}}
+
+Create a deserializer for shapes (ShapeDeserializer implements JsonbDeserializer<Shape>).
+
+Serialize and deserialize some shape instances (register the serializers and deserializer with the JsonbConfig).
+
+Deserializing a list of shapes is a little trickier.
+Can you figure out how to?
+String jsonShapes = "[{\"square\":{\"side\":2.0}},{\"rectangle\":{\"height\":3.0,\"width\":2.0}},{\"circle\":{\"radius\":1.0}}]";

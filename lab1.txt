@@ -11,12 +11,7 @@ APIs and reference implementations.
 
 # Serializing objects
 
-Create a Jsonb object using JsonbBuilder and serialize other objects.
-
-Jsonb jsonb = JsonbBuilder.create();
-
-Object obj = new Object();
-String json = jsonb.toJson(obj);
+Create a Jsonb object using JsonbBuilder and serialize an object. You can use the provided code in the lab1 package.
 
 
 ## Exercise
@@ -33,19 +28,18 @@ gets serialized.
 Make some changes to the code and see what effect they have on the serialized
 text. (Add fields, change access modifiers, add or remove accessor methods, ...)
 
-### Questions
 
-What happens when fields are non-public?
-What happens when fields have a null value?
-In what order are the fields serialized?
+### Questions
+What happens when fields are non-public? 
+What happens when fields have a null value? 
+In what order are the fields serialized? 
 
 
 # Basic serialization configuration
 
-Use JsonbConfig to configure the way Jsonb handles your objects.
+Use the JsonbConfig class to configure the way Jsonb handles your objects.
 
 JsonbConfig config = new JsonbConfig();
-// TODO customize the way Jsonb will work...
 Jsonb jsonb = JsonbBuilder.create(config);
 
 As exercise, try out the following configurations, and lookup further options in
@@ -53,16 +47,19 @@ the spec documentation or libraries.
 
 ## Pretty-print
 
+To create fancy output (e.g. for a demo), you can use formatting. Try it!
 config.withFormatting(true);
 
 ## Property naming strategy
 
 By default JSON object keys are identical to the Java property names.
-A different property naming strategy can be configured.
+A different property naming strategy can be configured using the line below.
 
 config.withPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CASE_WITH_UNDERSCORES);
 
-## Localized date/time format
+## Localized date format
+
+Formatting the date can be done using DateFormat.
 
 config.withDateFormat("EEEE dd MMMM yyyy", new Locale("nl", "NL"));
 
@@ -71,9 +68,10 @@ config.withDateFormat("EEEE dd MMMM yyyy", new Locale("nl", "NL"));
 
 Person p = jsonb.fromJson("{\"firstName\":\"Charles\",\"lastName\":\"Babbage\"}", Person.class);
 
-Take a look at the different variations of "fromJson".
-Note that it is important that the field can be set for deserialization (public
-getter and private or no setter may lead to unintended results, for instance).
+Take a look at the "fromJson" line above.
+Note that it is important that the field can be set for deserialization. Public getter and private or no setter may lead to unintended results, for instance.
+You can try this by setting the firstName field in the Person class to private.
+
 
 ## Exercise
 

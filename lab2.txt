@@ -1,11 +1,11 @@
 ﻿Lab 2
 
 In Lab 1 we saw some ways of starting to configure the output of JSON-B format,
-but we can customize the behaviour even more adjusting the objects being mapped,
-using JSON-B annotations.
+but we can customize the behaviour even more adjusting the objects being mapped, using JSON-B annotations.
 
-Per field configuration of JSON key names can be achieved by applying
-@JsonbProperty annotations.
+Try it out Lab 2, make sure you only use JSON-B annotations! 
+This link may come in handy to grasp the idea: https://json-b.net/docs/user-guide.html#changing-property-names 
+Modify the Person class to answer the questions.
 
 ## Exercise
 
@@ -13,7 +13,7 @@ Suppose consumers of the JSON representation of Person would like the JSON to be
 in their own language (other than English).
 
 Try using @JsonbProperty annotations in the Person class from Lab1 to make the
-JSON native to another language.
+JSON change the values of the fields. 
 
 ## Exercise
 
@@ -43,7 +43,7 @@ Dutch, as that was used in earlier customization, you can use your own):
 
 Person p = jsonb.fromJson("{\"voornaam\":\"John\",\"achternaam\":\"Doe\",\"geboortedatum\":\"01-01-1900\"}", Person.class);
 
-Apply @JsonbCreator to be able to deserialize the JSON text to a Person object.
+Create your own constructor with the addition of @JsonbCreator to be able to deserialize the JSON text to a Person object.
 
 
 
