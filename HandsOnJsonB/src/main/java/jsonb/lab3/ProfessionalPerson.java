@@ -1,20 +1,18 @@
 package jsonb.lab3;
 
-import javax.json.bind.annotation.JsonbCreator;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbTypeAdapter;
-
 import jsonb.lab3.external.library.UnmappablePerson;
 
+/*
+ * TODO use JsonbCreator, JsonbProperty and JsonbTypeAdapter annotations,
+ * so that this class gets serialized with the UnmappablePerson like a Person
+ * with a "plain" Jsonb (no special config: jsonb = JsonbBuilder.create()).
+ */
 public class ProfessionalPerson {
 
-	@JsonbTypeAdapter(UnmappablePersonAdapter.class)
 	private UnmappablePerson person;
 	private String profession;
 
-	@JsonbCreator
-	public ProfessionalPerson(@JsonbProperty("person") UnmappablePerson person,
-			@JsonbProperty("profession") String profession) {
+	public ProfessionalPerson(UnmappablePerson person, String profession) {
 		this.person = person;
 		this.profession = profession;
 	}
