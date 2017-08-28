@@ -1,0 +1,82 @@
+﻿Lab 1
+
+# Set up a working environment
+
+See readme.txt for some information on where to find JSON-B related libraries
+and documentation.
+
+Make sure you can write and execute Java code referencing the JSON-B and JSON-P
+APIs and reference implementations.
+
+
+# Serializing objects
+
+Create a Jsonb object using JsonbBuilder and serialize other objects.
+
+Jsonb jsonb = JsonbBuilder.create();
+
+Object obj = new Object();
+String json = jsonb.toJson(obj);
+
+
+## Exercise
+
+Serialize some basic objects like strings, numbers, booleans, date/times, and
+look at the text output.
+
+
+## Exercise
+
+Serialize custom objects. Look at the Person class, and see how the sample data
+gets serialized.
+
+Make some changes to the code and see what effect they have on the serialized
+text. (Add fields, change access modifiers, add or remove accessor methods, ...)
+
+### Questions
+
+What happens when fields are non-public?
+What happens when fields have a null value?
+In what order are the fields serialized?
+
+
+# Basic serialization configuration
+
+Use JsonbConfig to configure the way Jsonb handles your objects.
+
+JsonbConfig config = new JsonbConfig();
+// TODO customize the way Jsonb will work...
+Jsonb jsonb = JsonbBuilder.create(config);
+
+As exercise, try out the following configurations, and lookup further options in
+the spec documentation or libraries.
+
+## Pretty-print
+
+config.withFormatting(true);
+
+## Property naming strategy
+
+By default JSON object keys are identical to the Java property names.
+A different property naming strategy can be configured.
+
+config.withPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CASE_WITH_UNDERSCORES);
+
+## Localized date/time format
+
+config.withDateFormat("EEEE dd MMMM yyyy", new Locale("nl", "NL"));
+
+
+# Deserializing objects
+
+Person p = jsonb.fromJson("{\"firstName\":\"Charles\",\"lastName\":\"Babbage\"}", Person.class);
+
+Take a look at the different variations of "fromJson".
+Note that it is important that the field can be set for deserialization (public
+getter and private or no setter may lead to unintended results, for instance).
+
+## Exercise
+
+Try and deserialize some more JSON strings.
+What happens if the JSON text contains key names that are not present as
+property in the Java target class?

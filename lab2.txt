@@ -1,0 +1,50 @@
+﻿Lab 2
+
+In Lab 1 we saw some ways of starting to configure the output of JSON-B format,
+but we can customize the behaviour even more adjusting the objects being mapped,
+using JSON-B annotations.
+
+Per field configuration of JSON key names can be achieved by applying
+@JsonbProperty annotations.
+
+## Exercise
+
+Suppose consumers of the JSON representation of Person would like the JSON to be
+in their own language (other than English).
+
+Try using @JsonbProperty annotations in the Person class from Lab1 to make the
+JSON native to another language.
+
+## Exercise
+
+If the language uses custom date formatting, can you make sure the date of birth
+is formatted appropriately according to the nationale?
+
+## Exercise
+
+Can you make sure the date of birth is always included in the output, even as
+null value, avoiding any other null values to be printed?
+
+## Exercise
+
+In Dutch the order of the serialized properties is last name ("achternaam"),
+date of birth ("geboortedatum"), first name ("voornaam").
+
+Technically it does not matter, but suppose you'd like the name fields together,
+instead of separated by the birth date.
+
+Can you change the order of the fields in the output using @JsonbPropertyOrder?
+
+## Exercise
+
+The parameterless constructor added to the Person class to help deserialization
+does not look nice. Let's remove it and see what happens if we try (example in
+Dutch, as that was used in earlier customization, you can use your own):
+
+Person p = jsonb.fromJson("{\"voornaam\":\"John\",\"achternaam\":\"Doe\",\"geboortedatum\":\"01-01-1900\"}", Person.class);
+
+Apply @JsonbCreator to be able to deserialize the JSON text to a Person object.
+
+
+
+
